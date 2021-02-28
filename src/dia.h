@@ -14,17 +14,33 @@
  * input used in their production; they are not affected by this license.
  *
  */
-
 #ifndef _DIA_H
 #define _DIA_H
+
+#include <qcstring.h>
+#include <qstring.h>
+
+class filepathtype
+{
+private:
+    QString path;
+    bool valid_path(char* c);
+public:
+    filepathtype(char* c);
+    filepathtype(QCString s);
+    operator const char*() const {return path.local8Bit();};
+    operator const QString() const {return path;};
+    operator const QCString() const {return path.local8Bit();};
+};
+
 
 class QCString;
 class FTextStream;
 
 enum DiaOutputFormat { DIA_BITMAP , DIA_EPS };
 
-void writeDiaGraphFromFile(const char *inFile,const char *outDir,
-                           const char *outFile,DiaOutputFormat format);
+void writeDiaGraphFromFile(filepathtype inFile,filepathtype outDir,
+                           filepathtype outFile,DiaOutputFormat format);
 
 #endif
 

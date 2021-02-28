@@ -23,10 +23,28 @@
 
 #include <qdir.h>
 
+
+#include <stdexcept>
+
+filepathtype::filepathtype(char* c): path(c)
+{
+    if(!valid_path(c))
+        throw std::invalid_argument("Invalid filepath");
+}
+
+filepathtype::filepathtype(QCString s): path(s) {}
+
+bool filepathtype::valid_path(char* c)
+{
+    return true;
+}
+
+
+
 static const int maxCmdLine = 40960;
 
-void writeDiaGraphFromFile(const char *inFile,const char *outDir,
-                           const char *outFile,DiaOutputFormat format)
+void writeDiaGraphFromFile(filepathtype inFile,filepathtype outDir,
+                           filepathtype outFile,DiaOutputFormat format)
 {
   QCString absOutFile = outDir;
   absOutFile+=Portable::pathSeparator();
@@ -66,7 +84,7 @@ void writeDiaGraphFromFile(const char *inFile,const char *outDir,
   if ((exitCode=Portable::system(diaExe,diaArgs,FALSE))!=0)
   {
     err("Problems running %s. Check your installation or look typos in you dia file %s\n",
-        diaExe.data(),inFile);
+        diaExe.data(),(const char*)inFile);
     Portable::sysTimerStop();
     goto error;
   }
@@ -75,7 +93,7 @@ void writeDiaGraphFromFile(const char *inFile,const char *outDir,
   {
     QCString epstopdfArgs(maxCmdLine);
     epstopdfArgs.sprintf("\"%s.eps\" --outfile=\"%s.pdf\"",
-                         outFile,outFile);
+                         (const char*)outFile,(const char*)outFile);
     Portable::sysTimerStart();
     if (Portable::system("epstopdf",epstopdfArgs)!=0)
     {
