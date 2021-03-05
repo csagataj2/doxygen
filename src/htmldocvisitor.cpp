@@ -2327,7 +2327,7 @@ void HtmlDocVisitor::writeDiaFile(const QCString &fileName,
     baseName=baseName.left(i);
   }
   baseName.prepend("dia_");
-  QCString outDir = Config_getString(HTML_OUTPUT);
+  filepathtype outDir(Config_getString(HTML_OUTPUT));
   writeDiaGraphFromFile(fileName,outDir,baseName,DIA_BITMAP);
 
   m_t << "<img src=\"" << relPath << baseName << ".png" << "\" />" << endl;

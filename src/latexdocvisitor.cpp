@@ -1834,8 +1834,8 @@ void LatexDocVisitor::startDotFile(const QCString &fileName,
     baseName=baseName.left(i);
   }
   baseName.prepend("dot_");
-  QCString outDir = Config_getString(LATEX_OUTPUT);
-  QCString name = fileName;
+  filepathtype outDir(Config_getString(LATEX_OUTPUT));
+  filepathtype name(fileName);
   writeDotGraphFromFile(name,outDir,baseName,GOF_EPS);
   visitPreStart(m_t,hasCaption, baseName, width, height);
 }
@@ -1930,7 +1930,7 @@ void LatexDocVisitor::writeDiaFile(const QCString &baseName, DocVerbatim *s)
   {
     shortName=shortName.right(shortName.length()-i-1);
   }
-  QCString outDir = Config_getString(LATEX_OUTPUT);
+  filepathtype outDir(Config_getString(LATEX_OUTPUT));
   writeDiaGraphFromFile(baseName+".dia",outDir,shortName,DIA_EPS);
   visitPreStart(m_t, s->hasCaption(), shortName, s->width(), s->height());
   visitCaption(this, s->children());
