@@ -28,9 +28,10 @@ private:
 public:
     filepathtype(char* c);
     filepathtype(QCString s);
-    operator const char*() const {return path.local8Bit();};
-    operator const QString() const {return path;};
-    operator const QCString() const {return path.local8Bit();};
+    explicit operator const char*() const {return path.local8Bit();};
+    explicit operator const QString() const {return path;};
+    explicit operator const QCString() const {return path.local8Bit();}
+
 };
 
 

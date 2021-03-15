@@ -19,6 +19,7 @@
 #include <qcstring.h>
 #include <qgstring.h>
 #include <qdir.h>
+#include "dia.h"
 
 class FTextStream;
 class DotNode;

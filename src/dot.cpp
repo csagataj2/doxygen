@@ -270,21 +270,21 @@ bool DotManager::run() const
 
 //--------------------------------------------------------------------
 
-void writeDotGraphFromFile(const char *inFile,const char *outDir,
-                           const char *outFile,GraphOutputFormat format)
+void writeDotGraphFromFile(filepathtype inFile,filepathtype outDir,
+                           filepathtype outFile,GraphOutputFormat format)
 {
-  QDir d(outDir);
+  QDir d((QString)outDir);
   if (!d.exists())
   {
-    term("Output dir %s does not exist!\n",outDir);
+    term("Output dir %s does not exist!\n",(const char*)outDir);
   }
 
   QCString imgExt = getDotImageExtension();
   QCString imgName = (QCString)outFile+"."+imgExt;
   QCString absImgName = d.absPath().utf8()+"/"+imgName;
-  QCString absOutFile = d.absPath().utf8()+"/"+outFile;
+  QCString absOutFile = d.absPath().utf8()+"/"+(const char*)outFile;
 
-  DotRunner dotRun(inFile);
+  DotRunner dotRun((const char*)inFile);
   if (format==GOF_BITMAP)
   {
     dotRun.addJob(Config_getEnum(DOT_IMAGE_FORMAT),absImgName);
