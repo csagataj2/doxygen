@@ -46,14 +46,14 @@ static const int maxCmdLine = 40960;
 void writeDiaGraphFromFile(filepathtype inFile,filepathtype outDir,
                            filepathtype outFile,DiaOutputFormat format)
 {
-  QCString absOutFile = outDir;
+  QCString absOutFile = (QCString) outDir;
   absOutFile+=Portable::pathSeparator();
-  absOutFile+=outFile;
+  absOutFile+=(QCString) outFile;
 
   // chdir to the output dir, so dot can find the font file.
   QCString oldDir = QDir::currentDirPath().utf8();
   // go to the html output directory (i.e. path)
-  QDir::setCurrent(outDir);
+  QDir::setCurrent((QString) outDir);
   //printf("Going to dir %s\n",QDir::currentDirPath().data());
   QCString diaExe = Config_getString(DIA_PATH)+"dia"+Portable::commandExtension();
   QCString diaArgs;
@@ -71,11 +71,11 @@ void writeDiaGraphFromFile(filepathtype inFile,filepathtype outDir,
   }
 
   diaArgs+=" -e \"";
-  diaArgs+=outFile;
+  diaArgs+=(QCString) outFile;
   diaArgs+=extension+"\"";
 
   diaArgs+=" \"";
-  diaArgs+=inFile;
+  diaArgs+=(QCString) inFile;
   diaArgs+="\"";
 
   int exitCode;
