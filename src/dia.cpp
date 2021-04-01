@@ -39,6 +39,16 @@ bool filepathtype::valid_path(char* c)
     return true;
 }
 
+QCString operator+ (const QCString & s, const filepathtype & f)
+{
+    return QCString(s + (QCString)f);
+}
+
+QCString operator+ (const filepathtype & f, const char* s)
+{
+    return QCString((QCString)f + s);
+}
+
 
 
 static const int maxCmdLine = 40960;

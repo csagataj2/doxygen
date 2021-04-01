@@ -34,6 +34,10 @@ public:
 
 };
 
+QCString operator+ (const QCString & s, const filepathtype & f);
+
+QCString operator+ (const filepathtype & f, const char* s);
+
 
 class QCString;
 class FTextStream;
