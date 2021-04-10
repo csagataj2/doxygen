@@ -26,27 +26,27 @@
 
 #include <stdexcept>
 
-filepathtype::filepathtype(char* c): path(c)
+filepathtype::filepathtype(const char* c): path(c)
 {
     if(!valid_path(c))
         throw std::invalid_argument("Invalid filepath");
 }
 
-filepathtype::filepathtype(QCString s): path(s) {}
+filepathtype::filepathtype(const QCString s): path(s) {}
 
-bool filepathtype::valid_path(char* c)
+bool filepathtype::valid_path(const char* c)
 {
     return true;
 }
 
 QCString operator+ (const QCString & s, const filepathtype & f)
 {
-    return QCString(s + (QCString)f);
+    return QCString(s + (const QCString)f);
 }
 
 QCString operator+ (const filepathtype & f, const char* s)
 {
-    return QCString((QCString)f + s);
+    return QCString((const QCString)f + s);
 }
 
 FTextStream& operator<<(FTextStream& o, const filepathtype& f)
@@ -60,14 +60,14 @@ static const int maxCmdLine = 40960;
 void writeDiaGraphFromFile(filepathtype inFile,filepathtype outDir,
                            filepathtype outFile,DiaOutputFormat format)
 {
-  QCString absOutFile = (QCString) outDir;
+  QCString absOutFile = (const QCString) outDir;
   absOutFile+=Portable::pathSeparator();
-  absOutFile+=(QCString) outFile;
+  absOutFile+=(const QCString) outFile;
 
   // chdir to the output dir, so dot can find the font file.
   QCString oldDir = QDir::currentDirPath().utf8();
   // go to the html output directory (i.e. path)
-  QDir::setCurrent((QString) outDir);
+  QDir::setCurrent((const QString) outDir);
   //printf("Going to dir %s\n",QDir::currentDirPath().data());
   QCString diaExe = Config_getString(DIA_PATH)+"dia"+Portable::commandExtension();
   QCString diaArgs;
@@ -85,11 +85,11 @@ void writeDiaGraphFromFile(filepathtype inFile,filepathtype outDir,
   }
 
   diaArgs+=" -e \"";
-  diaArgs+=(QCString) outFile;
+  diaArgs+=(const QCString) outFile;
   diaArgs+=extension+"\"";
 
   diaArgs+=" \"";
-  diaArgs+=(QCString) inFile;
+  diaArgs+=(const QCString) inFile;
   diaArgs+="\"";
 
   int exitCode;

@@ -273,14 +273,14 @@ bool DotManager::run() const
 void writeDotGraphFromFile(filepathtype inFile,filepathtype outDir,
                            filepathtype outFile,GraphOutputFormat format)
 {
-  QDir d((QString)outDir);
+  QDir d((const QString)outDir);
   if (!d.exists())
   {
     term("Output dir %s does not exist!\n",(const char*)outDir);
   }
 
   QCString imgExt = getDotImageExtension();
-  QCString imgName = (QCString)outFile+"."+imgExt;
+  QCString imgName = (const QCString)outFile+"."+imgExt;
   QCString absImgName = d.absPath().utf8()+"/"+imgName;
   filepathtype absOutFile(d.absPath().utf8()+"/"+outFile);
 
@@ -360,7 +360,7 @@ void writeDotImageMapFromFile(FTextStream &t,
 
     t << "<img src=\"" << relPath << imgName << "\" alt=\""
       << imgName << "\" border=\"0\" usemap=\"#" << mapName << "\"/>" << endl;
-    DotFilePatcher::convertMapFile(tt, absOutFile, (QCString)relPath ,TRUE, context);
+    DotFilePatcher::convertMapFile(tt, absOutFile, (const QCString)relPath ,TRUE, context);
     if (!result.isEmpty())
     {
       t << "<map name=\"" << mapName << "\" id=\"" << mapName << "\">";

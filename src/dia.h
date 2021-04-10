@@ -26,10 +26,10 @@ class filepathtype
 {
 private:
     QString path;
-    bool valid_path(char* c);
+    bool valid_path(const char* c);
 public:
-    filepathtype(char* c);
-    filepathtype(QCString s);
+    filepathtype(const char* c);
+    filepathtype(const QCString s);
     explicit operator const char*() const {return path.utf8();};
     explicit operator const QString() const {return path;};
     explicit operator const QCString() const {return path.utf8();}
