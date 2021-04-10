@@ -20,6 +20,8 @@
 #include <qcstring.h>
 #include <qstring.h>
 
+class FTextStream;
+
 class filepathtype
 {
 private:
@@ -28,10 +30,10 @@ private:
 public:
     filepathtype(char* c);
     filepathtype(QCString s);
-    explicit operator const char*() const {return path.local8Bit();};
+    explicit operator const char*() const {return path.utf8();};
     explicit operator const QString() const {return path;};
-    explicit operator const QCString() const {return path.local8Bit();}
-
+    explicit operator const QCString() const {return path.utf8();}
+    friend FTextStream& operator<<(FTextStream& o, const filepathtype& f);
 };
 
 QCString operator+ (const QCString & s, const filepathtype & f);
