@@ -49,6 +49,10 @@ QCString operator+ (const filepathtype & f, const char* s)
     return QCString((QCString)f + s);
 }
 
+FTextStream& operator<<(FTextStream& o, const filepathtype& f)
+{
+    return o<<(const char*)f;
+}
 
 
 static const int maxCmdLine = 40960;

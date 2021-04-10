@@ -358,7 +358,7 @@ void writeDotImageMapFromFile(FTextStream &t,
     QGString result;
     FTextStream tt(&result);
 
-    t << "<img src=\"" << (const char*)relPath << imgName << "\" alt=\""
+    t << "<img src=\"" << relPath << imgName << "\" alt=\""
       << imgName << "\" border=\"0\" usemap=\"#" << mapName << "\"/>" << endl;
     DotFilePatcher::convertMapFile(tt, absOutFile, (QCString)relPath ,TRUE, context);
     if (!result.isEmpty())
