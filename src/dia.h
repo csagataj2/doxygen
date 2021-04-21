@@ -22,23 +22,25 @@
 
 class FTextStream;
 
-class filepathtype
+class filepath
 {
 private:
     QString path;
     bool valid_path(const char* c);
 public:
-    filepathtype(const char* c);
-    filepathtype(const QCString s);
+    filepath(const char* c);
+    filepath(const QCString s);
     explicit operator const char*() const {return path.utf8();};
     explicit operator const QString() const {return path;};
     explicit operator const QCString() const {return path.utf8();}
-    friend FTextStream& operator<<(FTextStream& o, const filepathtype& f);
+    friend FTextStream& operator<<(FTextStream& o, const filepath& f);
 };
 
-QCString operator+ (const QCString & s, const filepathtype & f);
+QCString operator+ (const QCString & s, const filepath & f);
 
-QCString operator+ (const filepathtype & f, const char* s);
+QCString operator+ (const filepath & f, const char* s);
+
+
 
 
 class QCString;
@@ -46,8 +48,8 @@ class FTextStream;
 
 enum DiaOutputFormat { DIA_BITMAP , DIA_EPS };
 
-void writeDiaGraphFromFile(filepathtype inFile,filepathtype outDir,
-                           filepathtype outFile,DiaOutputFormat format);
+void writeDiaGraphFromFile(filepath inFile,filepath outDir,
+                           filepath outFile,DiaOutputFormat format);
 
 #endif
 

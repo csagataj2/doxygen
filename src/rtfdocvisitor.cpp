@@ -1837,7 +1837,7 @@ void RTFDocVisitor::writeDiaFile(DocDiaFile *df)
   {
     baseName=baseName.right(baseName.length()-i-1);
   }
-  filepathtype outDir(Config_getString(RTF_OUTPUT));
+  filepath outDir(Config_getString(RTF_OUTPUT));
   writeDiaGraphFromFile(df->file(),outDir,baseName,DIA_BITMAP);
   includePicturePreRTF(baseName + ".png", true, df->hasCaption());
 }

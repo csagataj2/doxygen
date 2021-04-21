@@ -48,11 +48,11 @@ class DotManager
     std::vector< std::unique_ptr<DotWorkerThread> > m_workers;
 };
 
-void writeDotGraphFromFile(filepathtype inFile,filepathtype outDir,
-                           filepathtype outFile,GraphOutputFormat format);
+void writeDotGraphFromFile(filepath inFile,filepath outDir,
+                           filepath outFile,GraphOutputFormat format);
 void writeDotImageMapFromFile(FTextStream &t,
-                              const filepathtype& inFile, const filepathtype &outDir,
-                              const filepathtype& relPath,const QCString& baseName,
+                              const filepath& inFile, const filepath &outDir,
+                              const filepath& relPath,const QCString& baseName,
                               const QCString& context,int graphId=-1);
 
 #endif

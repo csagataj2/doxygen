@@ -270,8 +270,8 @@ bool DotManager::run() const
 
 //--------------------------------------------------------------------
 
-void writeDotGraphFromFile(filepathtype inFile,filepathtype outDir,
-                           filepathtype outFile,GraphOutputFormat format)
+void writeDotGraphFromFile(filepath inFile,filepath outDir,
+                           filepath outFile,GraphOutputFormat format)
 {
   QDir d((const QString)outDir);
   if (!d.exists())
@@ -282,7 +282,7 @@ void writeDotGraphFromFile(filepathtype inFile,filepathtype outDir,
   QCString imgExt = getDotImageExtension();
   QCString imgName = (const QCString)outFile+"."+imgExt;
   QCString absImgName = d.absPath().utf8()+"/"+imgName;
-  filepathtype absOutFile(d.absPath().utf8()+"/"+outFile);
+  filepath absOutFile(d.absPath().utf8()+"/"+outFile);
 
   DotRunner dotRun((const char*)inFile);
   if (format==GOF_BITMAP)
@@ -321,8 +321,8 @@ void writeDotGraphFromFile(filepathtype inFile,filepathtype outDir,
  *  \param graphId a unique id for this graph, use for dynamic sections
  */
 void writeDotImageMapFromFile(FTextStream &t,
-                              const filepathtype& inFile, const filepathtype &outDir,
-                              const filepathtype& relPath, const QCString &baseName,
+                              const filepath& inFile, const filepath &outDir,
+                              const filepath& relPath, const QCString &baseName,
                             const QCString &context,int graphId)
 {
 

@@ -1680,7 +1680,7 @@ DB_VIS_C
   {
     shortName=shortName.right((int)shortName.length()-i-1);
   }
-  filepathtype outDir(Config_getString(DOCBOOK_OUTPUT));
+  filepath outDir(Config_getString(DOCBOOK_OUTPUT));
   writeDiaGraphFromFile(baseName+".dia",outDir,shortName,DIA_BITMAP);
   visitPreStart(m_t, s->children(), s->hasCaption(), shortName, s->width(),s->height());
   visitCaption(s->children());
@@ -1706,7 +1706,7 @@ DB_VIS_C
     baseName=baseName.left(i);
   }
   baseName.prepend("dia_");
-  filepathtype outDir(Config_getString(DOCBOOK_OUTPUT));
+  filepath outDir(Config_getString(DOCBOOK_OUTPUT));
   writeDiaGraphFromFile(fileName,outDir,baseName,DIA_BITMAP);
   m_t << "<para>" << endl;
   visitPreStart(m_t, children, hasCaption, baseName + ".png",  width,  height);

@@ -26,39 +26,40 @@
 
 #include <stdexcept>
 
-filepathtype::filepathtype(const char* c): path(c)
+filepath::filepath(const char* c): path(c)
 {
     if(!valid_path(c))
         throw std::invalid_argument("Invalid filepath");
 }
 
-filepathtype::filepathtype(const QCString s): path(s) {}
+filepath::filepath(const QCString s): path(s) {}
 
-bool filepathtype::valid_path(const char* c)
+bool filepath::valid_path(const char* c)
 {
     return true;
 }
 
-QCString operator+ (const QCString & s, const filepathtype & f)
+QCString operator+ (const QCString & s, const filepath & f)
 {
     return QCString(s + (const QCString)f);
 }
 
-QCString operator+ (const filepathtype & f, const char* s)
+QCString operator+ (const filepath & f, const char* s)
 {
     return QCString((const QCString)f + s);
 }
 
-FTextStream& operator<<(FTextStream& o, const filepathtype& f)
+FTextStream& operator<<(FTextStream& o, const filepath& f)
 {
     return o<<(const char*)f;
 }
 
 
+
 static const int maxCmdLine = 40960;
 
-void writeDiaGraphFromFile(filepathtype inFile,filepathtype outDir,
-                           filepathtype outFile,DiaOutputFormat format)
+void writeDiaGraphFromFile(filepath inFile,filepath outDir,
+                           filepath outFile,DiaOutputFormat format)
 {
   QCString absOutFile = (const QCString) outDir;
   absOutFile+=Portable::pathSeparator();
