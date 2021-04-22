@@ -276,15 +276,15 @@ void writeDotGraphFromFile(filepath inFile,filepath outDir,
   QDir d((const QString)outDir);
   if (!d.exists())
   {
-    term("Output dir %s does not exist!\n",(const char*)outDir);
+    term("Output dir %s does not exist!\n",static_cast<const char*>(outDir));
   }
 
   QCString imgExt = getDotImageExtension();
-  QCString imgName = (const QCString)outFile+"."+imgExt;
+  QCString imgName = static_cast<const QCString>(outFile)+"."+imgExt;
   QCString absImgName = d.absPath().utf8()+"/"+imgName;
   filepath absOutFile(d.absPath().utf8()+"/"+outFile);
 
-  DotRunner dotRun((const char*)inFile);
+  DotRunner dotRun(static_cast<const char*>(inFile));
   if (format==GOF_BITMAP)
   {
     dotRun.addJob(Config_getEnum(DOT_IMAGE_FORMAT),absImgName);
@@ -326,10 +326,10 @@ void writeDotImageMapFromFile(FTextStream &t,
                             const QCString &context,int graphId)
 {
 
-  QDir d((const QCString)outDir);
+  QDir d(static_cast<const QCString>(outDir));
   if (!d.exists())
   {
-    term("Output dir %s does not exist!\n",(const char*)outDir);
+    term("Output dir %s does not exist!\n",static_cast<const char*>(outDir));
   }
 
   QCString mapName = baseName+".map";
@@ -337,7 +337,7 @@ void writeDotImageMapFromFile(FTextStream &t,
   QCString imgName = baseName+"."+imgExt;
   QCString absOutFile = d.absPath().utf8()+"/"+mapName;
 
-  DotRunner dotRun((const char*)inFile);
+  DotRunner dotRun(static_cast<const char*>(inFile));
   dotRun.addJob(MAP_CMD,absOutFile);
   dotRun.preventCleanUp();
   if (!dotRun.run())
@@ -347,8 +347,8 @@ void writeDotImageMapFromFile(FTextStream &t,
 
   if (imgExt=="svg") // vector graphics
   {
-    QCString svgName=(const QCString)outDir+"/"+baseName+".svg";
-    DotFilePatcher::writeSVGFigureLink(t,(const QCString)relPath,baseName,svgName);
+    QCString svgName=static_cast<const QCString>(outDir)+"/"+baseName+".svg";
+    DotFilePatcher::writeSVGFigureLink(t,static_cast<const QCString>(relPath),baseName,svgName);
     DotFilePatcher patcher(svgName);
     patcher.addSVGConversion("",TRUE,context,TRUE,graphId);
     patcher.run();
@@ -360,7 +360,7 @@ void writeDotImageMapFromFile(FTextStream &t,
 
     t << "<img src=\"" << relPath << imgName << "\" alt=\""
       << imgName << "\" border=\"0\" usemap=\"#" << mapName << "\"/>" << endl;
-    DotFilePatcher::convertMapFile(tt, absOutFile, (const QCString)relPath ,TRUE, context);
+    DotFilePatcher::convertMapFile(tt, absOutFile, static_cast<const QCString>(relPath) ,TRUE, context);
     if (!result.isEmpty())
     {
       t << "<map name=\"" << mapName << "\" id=\"" << mapName << "\">";

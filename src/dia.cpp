@@ -41,17 +41,17 @@ bool filepath::valid_path(const char* c)
 
 QCString operator+ (const QCString & s, const filepath & f)
 {
-    return QCString(s + (const QCString)f);
+    return QCString(s + static_cast<const QCString>(f));
 }
 
 QCString operator+ (const filepath & f, const char* s)
 {
-    return QCString((const QCString)f + s);
+    return QCString(static_cast<const QCString>(f) + s);
 }
 
 FTextStream& operator<<(FTextStream& o, const filepath& f)
 {
-    return o<<(const char*)f;
+    return o<<static_cast<const char*>(f);
 }
 
 
@@ -61,9 +61,9 @@ static const int maxCmdLine = 40960;
 void writeDiaGraphFromFile(filepath inFile,filepath outDir,
                            filepath outFile,DiaOutputFormat format)
 {
-  QCString absOutFile = (const QCString) outDir;
+  QCString absOutFile = static_cast<const QCString>(outDir);
   absOutFile+=Portable::pathSeparator();
-  absOutFile+=(const QCString) outFile;
+  absOutFile+=static_cast<const QCString>(outFile);
 
   // chdir to the output dir, so dot can find the font file.
   QCString oldDir = QDir::currentDirPath().utf8();
@@ -86,11 +86,11 @@ void writeDiaGraphFromFile(filepath inFile,filepath outDir,
   }
 
   diaArgs+=" -e \"";
-  diaArgs+=(const QCString) outFile;
+  diaArgs+=static_cast<const QCString>(outFile);
   diaArgs+=extension+"\"";
 
   diaArgs+=" \"";
-  diaArgs+=(const QCString) inFile;
+  diaArgs+=static_cast<const QCString>(inFile);
   diaArgs+="\"";
 
   int exitCode;
@@ -99,7 +99,7 @@ void writeDiaGraphFromFile(filepath inFile,filepath outDir,
   if ((exitCode=Portable::system(diaExe,diaArgs,FALSE))!=0)
   {
     err("Problems running %s. Check your installation or look typos in you dia file %s\n",
-        diaExe.data(),(const char*)inFile);
+        diaExe.data(),static_cast<const char*>(inFile));
     Portable::sysTimerStop();
     goto error;
   }
@@ -108,7 +108,7 @@ void writeDiaGraphFromFile(filepath inFile,filepath outDir,
   {
     QCString epstopdfArgs(maxCmdLine);
     epstopdfArgs.sprintf("\"%s.eps\" --outfile=\"%s.pdf\"",
-                         (const char*)outFile,(const char*)outFile);
+                         static_cast<const char*>(outFile),static_cast<const char*>(outFile));
     Portable::sysTimerStart();
     if (Portable::system("epstopdf",epstopdfArgs)!=0)
     {
