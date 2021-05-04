@@ -1800,7 +1800,7 @@ void RTFDocVisitor::writeDotFile(DocDotFile *df)
 }
 void RTFDocVisitor::writeDotFile(const QCString &filename, bool hasCaption)
 {
-  QCString baseName=filename;
+  filepath baseName=filename;
   int i;
   if ((i=baseName.findRev('/'))!=-1)
   {
@@ -1844,7 +1844,7 @@ void RTFDocVisitor::writeDiaFile(DocDiaFile *df)
 
 void RTFDocVisitor::writePlantUMLFile(const QCString &fileName, bool hasCaption)
 {
-  QCString baseName=fileName;
+  filepath baseName=fileName;
   int i;
   if ((i=baseName.findRev('/'))!=-1)
   {
