@@ -54,8 +54,30 @@ FTextStream& operator<<(FTextStream& o, const filepath& f)
     return o<<static_cast<const char*>(f);
 }
 
+int filepath::findRev(char c, int index , bool cs ) const
+{
+  return path.findRev(c,index,cs);
+}
 
+uint filepath::length() const
+{
+  return path.length();
+}
 
+filepath filepath::right(uint len) const
+{
+  return filepath(static_cast<const QString>(path).right(len).local8Bit());
+}
+
+filepath filepath::left(uint len) const
+{
+  return filepath(static_cast<const QString>(path).left(len).local8Bit());
+}
+
+int	filepath::find( char c, int index, bool cs) const
+{
+  return path.find(c,index,cs);
+}
 static const int maxCmdLine = 40960;
 
 void writeDiaGraphFromFile(filepath inFile,filepath outDir,

@@ -34,6 +34,11 @@ public:
     explicit operator const QString() const {return path;};
     explicit operator const QCString() const {return path.utf8();}
     friend FTextStream& operator<<(FTextStream& o, const filepath& f);
+    int findRev(char c, int index = -1, bool cs = true) const;
+    uint length() const;
+    filepath right(uint len) const;
+    filepath left(uint len) const;
+    int	find( char c, int index=0, bool cs=TRUE ) const;
 };
 
 QCString operator+ (const QCString & s, const filepath & f);
