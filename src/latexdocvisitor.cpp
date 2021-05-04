@@ -1823,7 +1823,7 @@ void LatexDocVisitor::startDotFile(const QCString &fileName,
                                    bool hasCaption
                                   )
 {
-  QCString baseName=fileName;
+  filepath baseName=fileName;
   int i;
   if ((i=baseName.findRev('/'))!=-1)
   {
@@ -1837,7 +1837,7 @@ void LatexDocVisitor::startDotFile(const QCString &fileName,
   filepath outDir(Config_getString(LATEX_OUTPUT));
   filepath name(fileName);
   writeDotGraphFromFile(name,outDir,baseName,GOF_EPS);
-  visitPreStart(m_t,hasCaption, baseName, width, height);
+  visitPreStart(m_t,hasCaption, static_cast<QCString>(baseName), width, height);
 }
 
 void LatexDocVisitor::endDotFile(bool hasCaption)
@@ -1852,7 +1852,7 @@ void LatexDocVisitor::startMscFile(const QCString &fileName,
                                    bool hasCaption
                                   )
 {
-  QCString baseName=fileName;
+  filepath baseName=fileName;
   int i;
   if ((i=baseName.findRev('/'))!=-1)
   {
@@ -1865,8 +1865,8 @@ void LatexDocVisitor::startMscFile(const QCString &fileName,
   baseName.prepend("msc_");
 
   QCString outDir = Config_getString(LATEX_OUTPUT);
-  writeMscGraphFromFile(fileName,outDir,baseName,MSC_EPS);
-  visitPreStart(m_t,hasCaption, baseName, width, height);
+  writeMscGraphFromFile(fileName,outDir, static_cast<QCString>(baseName),MSC_EPS);
+  visitPreStart(m_t,hasCaption, static_cast<QCString>(baseName), width, height);
 }
 
 void LatexDocVisitor::endMscFile(bool hasCaption)
@@ -1878,15 +1878,15 @@ void LatexDocVisitor::endMscFile(bool hasCaption)
 
 void LatexDocVisitor::writeMscFile(const QCString &baseName, DocVerbatim *s)
 {
-  QCString shortName = baseName;
+  filepath shortName = baseName;
   int i;
   if ((i=shortName.findRev('/'))!=-1)
   {
     shortName=shortName.right(shortName.length()-i-1);
   }
   QCString outDir = Config_getString(LATEX_OUTPUT);
-  writeMscGraphFromFile(baseName+".msc",outDir,shortName,MSC_EPS);
-  visitPreStart(m_t, s->hasCaption(), shortName, s->width(),s->height());
+  writeMscGraphFromFile(baseName+".msc",outDir,static_cast<QCString>(shortName),MSC_EPS);
+  visitPreStart(m_t, s->hasCaption(), static_cast<QCString>(shortName), s->width(),s->height());
   visitCaption(this, s->children());
   visitPostEnd(m_t, s->hasCaption());
 }
@@ -1898,7 +1898,7 @@ void LatexDocVisitor::startDiaFile(const QCString &fileName,
                                    bool hasCaption
                                   )
 {
-  QCString baseName=fileName;
+  filepath baseName=fileName;
   int i;
   if ((i=baseName.findRev('/'))!=-1)
   {
@@ -1912,7 +1912,7 @@ void LatexDocVisitor::startDiaFile(const QCString &fileName,
 
   QCString outDir = Config_getString(LATEX_OUTPUT);
   writeDiaGraphFromFile(fileName,outDir,baseName,DIA_EPS);
-  visitPreStart(m_t,hasCaption, baseName, width, height);
+  visitPreStart(m_t,hasCaption, static_cast<QCString>(baseName), width, height);
 }
 
 void LatexDocVisitor::endDiaFile(bool hasCaption)
@@ -1924,7 +1924,7 @@ void LatexDocVisitor::endDiaFile(bool hasCaption)
 
 void LatexDocVisitor::writeDiaFile(const QCString &baseName, DocVerbatim *s)
 {
-  QCString shortName = baseName;
+  filepath shortName = baseName;
   int i;
   if ((i=shortName.findRev('/'))!=-1)
   {
@@ -1932,14 +1932,14 @@ void LatexDocVisitor::writeDiaFile(const QCString &baseName, DocVerbatim *s)
   }
   filepath outDir(Config_getString(LATEX_OUTPUT));
   writeDiaGraphFromFile(baseName+".dia",outDir,shortName,DIA_EPS);
-  visitPreStart(m_t, s->hasCaption(), shortName, s->width(), s->height());
+  visitPreStart(m_t, s->hasCaption(), static_cast<QCString>(shortName), s->width(), s->height());
   visitCaption(this, s->children());
   visitPostEnd(m_t, s->hasCaption());
 }
 
 void LatexDocVisitor::writePlantUMLFile(const QCString &baseName, DocVerbatim *s)
 {
-  QCString shortName = baseName;
+  filepath shortName = baseName;
   int i;
   if ((i=shortName.findRev('/'))!=-1)
   {
@@ -1947,7 +1947,7 @@ void LatexDocVisitor::writePlantUMLFile(const QCString &baseName, DocVerbatim *s
   }
   QCString outDir = Config_getString(LATEX_OUTPUT);
   PlantumlManager::instance().generatePlantUMLOutput(baseName,outDir,PlantumlManager::PUML_EPS);
-  visitPreStart(m_t, s->hasCaption(), shortName, s->width(), s->height());
+  visitPreStart(m_t, s->hasCaption(), static_cast<QCString>(shortName), s->width(), s->height());
   visitCaption(this, s->children());
   visitPostEnd(m_t, s->hasCaption());
 }
