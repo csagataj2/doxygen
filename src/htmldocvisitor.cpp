@@ -2272,7 +2272,7 @@ void HtmlDocVisitor::endLink()
 void HtmlDocVisitor::writeDotFile(const QCString &fn,const QCString &relPath,
                                   const QCString &context)
 {
-  QCString baseName=fn;
+  filepath baseName=fn;
   int i;
   if ((i=baseName.findRev('/'))!=-1)
   {
@@ -2285,14 +2285,14 @@ void HtmlDocVisitor::writeDotFile(const QCString &fn,const QCString &relPath,
   baseName.prepend("dot_");
   QCString outDir = Config_getString(HTML_OUTPUT);
   writeDotGraphFromFile(fn,outDir,baseName,GOF_BITMAP);
-  writeDotImageMapFromFile(m_t,fn,outDir,relPath,baseName,context);
+  writeDotImageMapFromFile(m_t,fn,outDir,relPath,static_cast<QCString>(baseName),context);
 }
 
 void HtmlDocVisitor::writeMscFile(const QCString &fileName,
                                   const QCString &relPath,
                                   const QCString &context)
 {
-  QCString baseName=fileName;
+  filepath baseName=fileName;
   int i;
   if ((i=baseName.findRev('/'))!=-1) // strip path
   {
@@ -2308,15 +2308,15 @@ void HtmlDocVisitor::writeMscFile(const QCString &fileName,
   MscOutputFormat mscFormat = MSC_BITMAP;
   if ("svg" == imgExt)
     mscFormat = MSC_SVG;
-  writeMscGraphFromFile(fileName,outDir,baseName,mscFormat);
-  writeMscImageMapFromFile(m_t,fileName,outDir,relPath,baseName,context,mscFormat);
+  writeMscGraphFromFile(fileName,outDir,static_cast<QCString>(baseName),mscFormat);
+  writeMscImageMapFromFile(m_t,fileName,outDir,relPath,static_cast<QCString>(baseName),context,mscFormat);
 }
 
 void HtmlDocVisitor::writeDiaFile(const QCString &fileName,
                                   const QCString &relPath,
                                   const QCString &)
 {
-  QCString baseName=fileName;
+  filepath baseName=fileName;
   int i;
   if ((i=baseName.findRev('/'))!=-1) // strip path
   {
@@ -2337,7 +2337,7 @@ void HtmlDocVisitor::writePlantUMLFile(const QCString &fileName,
                                        const QCString &relPath,
                                        const QCString &)
 {
-  QCString baseName=fileName;
+  filepath baseName=fileName;
   int i;
   if ((i=baseName.findRev('/'))!=-1) // strip path
   {
