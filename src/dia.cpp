@@ -78,6 +78,13 @@ int	filepath::find( char c, int index, bool cs) const
 {
   return path.find(c,index,cs);
 }
+
+filepath& filepath::prepend(const char *s)
+{
+  path.prepend(s);
+  return *this;
+}
+
 static const int maxCmdLine = 40960;
 
 void writeDiaGraphFromFile(filepath inFile,filepath outDir,

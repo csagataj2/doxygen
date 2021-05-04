@@ -38,6 +38,7 @@ public:
     uint length() const;
     filepath right(uint len) const;
     filepath left(uint len) const;
+    filepath& prepend(const char *s);
     int	find( char c, int index=0, bool cs=TRUE ) const;
 };
 
